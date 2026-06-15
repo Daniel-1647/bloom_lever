@@ -29,49 +29,54 @@ const App: React.FC = () => {
     <div
       className={`min-h-screen relative overflow-x-hidden transition-colors duration-300 ${
         theme === "dark"
-          ? "bg-[#071218] text-slate-100"
-          : "bg-[#f7f8f6] text-slate-900"
+          ? "bg-[#050b10] text-slate-100"
+          : "bg-[#f4f7f8] text-slate-900"
       }`}
     >
       <div
         className={`pointer-events-none absolute inset-0 ${
           theme === "dark"
-            ? "bg-[radial-gradient(circle_at_15%_10%,rgba(16,185,129,0.2),transparent_40%),radial-gradient(circle_at_85%_0%,rgba(14,165,233,0.18),transparent_35%)]"
-            : "bg-[radial-gradient(circle_at_12%_10%,rgba(16,185,129,0.14),transparent_40%),radial-gradient(circle_at_92%_2%,rgba(245,158,11,0.12),transparent_35%)]"
+            ? "bg-[radial-gradient(circle_at_12%_8%,rgba(34,197,94,0.18),transparent_34%),radial-gradient(circle_at_82%_12%,rgba(56,189,248,0.16),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.03),transparent)]"
+            : "bg-[radial-gradient(circle_at_12%_8%,rgba(34,197,94,0.12),transparent_34%),radial-gradient(circle_at_82%_12%,rgba(14,165,233,0.10),transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.55),transparent)]"
         }`}
       />
 
       <header
         className={`sticky top-0 z-50 backdrop-blur-xl border-b transition-colors duration-300 ${
           theme === "dark"
-            ? "bg-[#071218]/80 border-emerald-900/50"
-            : "bg-[#f7f8f6]/80 border-emerald-200"
+            ? "bg-[#050b10]/80 border-white/10"
+            : "bg-[#f4f7f8]/80 border-slate-200/80"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-3">
+          <div className="flex justify-between items-center py-4 gap-4">
+            <div className="flex items-center gap-3">
               <div
-                className={`w-11 h-11 rounded-2xl flex items-center justify-center font-black text-sm tracking-wider transition-colors shadow-lg ${
+                className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-colors shadow-lg shadow-cyan-500/15 ${
                   theme === "dark"
-                    ? "bg-gradient-to-br from-emerald-500 to-cyan-500 text-[#041015]"
-                    : "bg-gradient-to-br from-emerald-600 to-cyan-500 text-white"
+                    ? "bg-white/5 border border-white/10"
+                    : "bg-white border border-slate-200"
                 }`}
               >
-                QR
+                <div
+                  className={`h-5 w-5 rounded-full border-2 ${
+                    theme === "dark" ? "border-cyan-300" : "border-cyan-600"
+                  }`}
+                />
               </div>
-              <div>
-                <h1 className="text-xl sm:text-2xl font-black tracking-tight">
-                  Question Repository
-                </h1>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <h1 className="text-lg sm:text-2xl font-black tracking-tight">
+                    Bloom Lever
+                  </h1>
+                </div>
                 <p
-                  className={`text-xs tracking-wide uppercase ${
-                    theme === "dark"
-                      ? "text-emerald-300/90"
-                      : "text-emerald-700"
+                  className={`text-xs sm:text-sm mt-1 ${
+                    theme === "dark" ? "text-slate-400" : "text-slate-500"
                   }`}
                 >
-                  AI-Powered Taxonomy Analysis
+                  Assessment intelligence for teams that need fast, reliable
+                  content triage.
                 </p>
               </div>
             </div>
@@ -80,7 +85,7 @@ const App: React.FC = () => {
               onClick={toggleTheme}
               className={`px-3 py-2.5 rounded-xl transition-all duration-300 border flex items-center gap-2 font-semibold ${
                 theme === "dark"
-                  ? "bg-slate-900/80 border-slate-700 hover:border-emerald-500/60 hover:text-emerald-300 text-slate-200"
+                  ? "bg-white/5 border-white/10 hover:border-cyan-400/50 hover:text-cyan-200 text-slate-200"
                   : "bg-white border-slate-300 hover:border-cyan-500/60 hover:text-cyan-700 text-slate-700"
               }`}
               aria-label="Toggle theme"
@@ -104,17 +109,17 @@ const App: React.FC = () => {
 
       <footer
         className={`mt-12 border-t transition-colors duration-300 ${
-          theme === "dark" ? "border-emerald-900/50" : "border-emerald-200"
+          theme === "dark" ? "border-white/10" : "border-slate-200"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <p
             className={`text-center text-sm tracking-wide ${
-              theme === "dark" ? "text-slate-400" : "text-slate-600"
+              theme === "dark" ? "text-slate-400" : "text-slate-500"
             }`}
           >
-            © 2026 Question Repository • Built by Divyanshu Upadhyaya, Himansh
-            Sharma, Suhani Patidar and Ayush Kumar.
+            Created by Zephyrus Technologies 2026 • Contact
+            divyanshu@zephyrus.in
           </p>
         </div>
       </footer>

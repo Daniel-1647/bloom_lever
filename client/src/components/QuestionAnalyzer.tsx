@@ -229,16 +229,16 @@ const QuestionAnalyzer: React.FC<QuestionAnalyzerProps> = ({
   };
 
   return (
-    <div className="animate-fadeIn">
+    <div className="animate-fadeIn space-y-4">
       <button
         onClick={analyzeQuestion}
         disabled={loading || (!isPdfUpload && parsedQuestions.length === 0)}
-        className={`w-full sm:w-auto px-8 py-3 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg ${
+        className={`w-full sm:w-auto px-8 py-3 rounded-2xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg ${
           loading || (!isPdfUpload && parsedQuestions.length === 0)
             ? theme === "dark"
               ? "bg-slate-800 text-slate-500 cursor-not-allowed"
               : "bg-slate-200 text-slate-400 cursor-not-allowed"
-            : "bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-[#06151a] hover:shadow-xl transform hover:scale-105"
+            : "bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 hover:shadow-xl transform hover:-translate-y-0.5"
         }`}
       >
         {loading ? (
@@ -249,27 +249,27 @@ const QuestionAnalyzer: React.FC<QuestionAnalyzerProps> = ({
         ) : (
           <span>
             {isPdfUpload
-              ? "Extract Topics & Analyze PDF"
+              ? "Process PDF"
               : parsedQuestions.length > 1
-                ? `Analyze ${parsedQuestions.length} Questions`
-                : "Analyze Question"}
+                ? `Analyze ${parsedQuestions.length} items`
+                : "Run analysis"}
           </span>
         )}
       </button>
 
       {isPdfUpload && uploadedFile && (
         <p
-          className={`mt-2 text-sm ${theme === "dark" ? "text-slate-400" : "text-slate-600"}`}
+          className={`mt-2 text-sm ${theme === "dark" ? "text-slate-400" : "text-slate-500"}`}
         >
-          Source: {uploadedFile.name}
+          Document: {uploadedFile.name}
         </p>
       )}
 
       {error && (
         <div
-          className={`mt-6 p-4 rounded-xl flex items-start space-x-3 animate-fadeIn ${
+          className={`mt-6 p-4 rounded-2xl flex items-start gap-3 animate-fadeIn ${
             theme === "dark"
-              ? "bg-red-950/40 border border-red-700"
+              ? "bg-red-950/40 border border-red-700/70"
               : "bg-red-50 border border-red-200"
           }`}
         >
@@ -282,19 +282,28 @@ const QuestionAnalyzer: React.FC<QuestionAnalyzerProps> = ({
 
       {results.length > 0 && (
         <div className="mt-8 space-y-4 animate-fadeIn">
-          <div className="flex items-center justify-between flex-wrap gap-3">
-            <h3
-              className={`text-xl font-black tracking-tight ${
-                theme === "dark" ? "text-slate-100" : "text-slate-900"
-              }`}
-            >
-              Analysis Results ({results.length})
-            </h3>
+          <div className="flex items-end justify-between flex-wrap gap-3">
+            <div>
+              <h3
+                className={`text-xl font-black tracking-tight ${
+                  theme === "dark" ? "text-slate-100" : "text-slate-900"
+                }`}
+              >
+                Analysis output ({results.length})
+              </h3>
+              <p
+                className={`mt-1 text-sm ${
+                  theme === "dark" ? "text-slate-400" : "text-slate-500"
+                }`}
+              >
+                Classified content and confidence by item.
+              </p>
+            </div>
             {summary && (
               <div
-                className={`px-3 py-2 rounded-xl text-sm font-semibold ${
+                className={`px-3 py-2 rounded-2xl text-sm font-semibold ${
                   theme === "dark"
-                    ? "bg-[#0e1e28] border border-slate-700 text-slate-300"
+                    ? "bg-white/5 border border-white/10 text-slate-200"
                     : "bg-slate-50 border border-slate-200 text-slate-700"
                 }`}
               >
@@ -306,30 +315,30 @@ const QuestionAnalyzer: React.FC<QuestionAnalyzerProps> = ({
 
           {sourceLabel && (
             <div
-              className={`px-4 py-3 rounded-xl text-sm ${
+              className={`px-4 py-3 rounded-2xl text-sm ${
                 theme === "dark"
-                  ? "bg-[#0e1e28] border border-slate-700 text-slate-300"
+                  ? "bg-white/5 border border-white/10 text-slate-300"
                   : "bg-slate-50 border border-slate-200 text-slate-700"
               }`}
             >
-              Analyzed from PDF: {sourceLabel}
+              Source file: {sourceLabel}
             </div>
           )}
 
           {extractedItems.length > 0 && (
             <div
-              className={`p-4 rounded-xl ${
+              className={`p-4 rounded-2xl ${
                 theme === "dark"
-                  ? "bg-[#0e1e28] border border-slate-700"
+                  ? "bg-white/5 border border-white/10"
                   : "bg-slate-50 border border-slate-200"
               }`}
             >
               <p
-                className={`text-sm font-semibold mb-2 ${
-                  theme === "dark" ? "text-slate-300" : "text-slate-700"
+                className={`text-sm font-semibold mb-2 uppercase tracking-[0.18em] ${
+                  theme === "dark" ? "text-slate-400" : "text-slate-500"
                 }`}
               >
-                Extracted Topics/Questions ({extractedItems.length})
+                Extracted items ({extractedItems.length})
               </p>
               <p
                 className={`text-sm whitespace-pre-wrap ${
@@ -347,16 +356,17 @@ const QuestionAnalyzer: React.FC<QuestionAnalyzerProps> = ({
             return (
               <div
                 key={`${result.question}-${idx}`}
-                className={`rounded-2xl shadow-xl overflow-hidden ${
+                className={`rounded-[1.75rem] shadow-xl overflow-hidden border ${
                   theme === "dark"
-                    ? "bg-[#0f1f28]/80 border border-slate-700"
+                    ? "bg-slate-950/70 border-white/10"
                     : "bg-white border border-slate-200"
                 }`}
               >
                 <div
                   className="p-6 border-b"
                   style={{
-                    borderColor: theme === "dark" ? "#334155" : "#e2e8f0",
+                    borderColor:
+                      theme === "dark" ? "rgba(255,255,255,0.08)" : "#e2e8f0",
                     background:
                       theme === "dark"
                         ? `linear-gradient(135deg, ${levelMeta.color}15, transparent)`
@@ -366,14 +376,14 @@ const QuestionAnalyzer: React.FC<QuestionAnalyzerProps> = ({
                   <div className="flex items-start justify-between flex-wrap gap-4">
                     <div className="space-y-2">
                       <p
-                        className={`text-sm font-medium ${
+                        className={`text-sm font-medium uppercase tracking-[0.18em] ${
                           theme === "dark" ? "text-slate-400" : "text-slate-600"
                         }`}
                       >
-                        Question {idx + 1}
+                        Item {idx + 1}
                       </p>
                       <p
-                        className={`text-base ${
+                        className={`text-base leading-7 ${
                           theme === "dark" ? "text-slate-200" : "text-slate-800"
                         }`}
                       >
@@ -397,8 +407,8 @@ const QuestionAnalyzer: React.FC<QuestionAnalyzerProps> = ({
                           }`}
                         >
                           {result.levelIndex >= 0
-                            ? `Bloom's Taxonomy Level ${result.levelIndex + 1}`
-                            : "Bloom's Taxonomy Level unavailable"}
+                            ? `Level ${result.levelIndex + 1} classification`
+                            : "Classification unavailable"}
                         </p>
                       </div>
                     </div>
@@ -426,7 +436,7 @@ const QuestionAnalyzer: React.FC<QuestionAnalyzerProps> = ({
                         theme === "dark" ? "text-slate-200" : "text-slate-800"
                       }`}
                     >
-                      Analysis Explanation
+                      Why this classification
                     </h5>
                     <p
                       className={
@@ -444,7 +454,7 @@ const QuestionAnalyzer: React.FC<QuestionAnalyzerProps> = ({
                           theme === "dark" ? "text-slate-200" : "text-slate-800"
                         }`}
                       >
-                        Confidence Score
+                        Confidence
                       </h5>
                       <span
                         className="text-2xl font-bold"
@@ -469,16 +479,16 @@ const QuestionAnalyzer: React.FC<QuestionAnalyzerProps> = ({
                   </div>
 
                   <div
-                    className={`p-4 rounded-xl ${
-                      theme === "dark" ? "bg-slate-800/70" : "bg-slate-50"
+                    className={`p-4 rounded-2xl ${
+                      theme === "dark" ? "bg-white/5" : "bg-slate-50"
                     }`}
                   >
                     <h5
-                      className={`text-sm font-semibold mb-2 uppercase tracking-wide ${
+                      className={`text-sm font-semibold mb-2 uppercase tracking-[0.18em] ${
                         theme === "dark" ? "text-slate-400" : "text-slate-600"
                       }`}
                     >
-                      Level Description
+                      Classification context
                     </h5>
                     <p
                       className={`text-base ${
